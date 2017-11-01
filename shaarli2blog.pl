@@ -17,7 +17,7 @@ use utf8;
 my $blogurl = "https://delicious.leyrer.priv.at/?do=rss&searchtags=publish";
 
 # Folder in which to create directories and content files
-my $destfolder = "/home/leyrer/Priv-Homepage/test-gen";
+my $destfolder = "/home/leyrer/Priv-Homepage/Generate/shaarli";
 
 # files should start with this string (followed by date string and '.txt')
 my $fileprefix = "shaarli-";
@@ -29,7 +29,7 @@ my $headlinestring = "h4";
 my $subjectprefix = "Links from ";
 
 # Turn debugging on/off
-my $DEBUG = 1;
+my $DEBUG = 0;
 
 # You may change these values END
 
@@ -55,7 +55,8 @@ my $entries;
 
 # Build hash with ready-built strings for each day
 foreach my $item ($feed->entries) {
-	$entries->{substr($item->issued, 0, 10)} = entry2string($item);
+	print substr($item->issued, 0, 10) . "\n";
+	$entries->{substr($item->issued, 0, 10)} .= entry2string($item);
 }
 
 
@@ -132,8 +133,6 @@ if( defined($ARGV[3]) ) {	# Generate link entries from date "from" to date "to"
 exit;
 
 
-exit;
-
 sub fiveOclock {
 	my ($str) = @_;
 
@@ -198,10 +197,8 @@ sub entry2string {
 	my $body = $c->body;
 	$body =~ s/(<br>\&#8212; <a href=\"https:\/\/delicious\.leyrer.*)$//m;
 	chomp $body;
-
 	$ret .= "<$headlinestring><a href=\"" . $entry->link . '" title="' . $e . '">' . $e . "</a></$headlinestring>\n";
-	$ret .= '<p>' . $body . "</p>\n";
-		
+	$ret .= '<p>' . $body . "</p>\n\n";
 	return($ret);
 }
 
