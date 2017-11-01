@@ -55,7 +55,6 @@ my $entries;
 
 # Build hash with ready-built strings for each day
 foreach my $item ($feed->entries) {
-	print substr($item->issued, 0, 10) . "\n";
 	$entries->{substr($item->issued, 0, 10)} .= entry2string($item);
 }
 
