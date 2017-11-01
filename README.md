@@ -8,4 +8,5 @@ Prerequisites
 
 sudo apt-get install libssl-dev  
 sudo apt-get install libxml-feed-perl  
+sudo apt-get install libdatetime-format-strptime-perl  
 
